@@ -412,7 +412,7 @@ text
 ```
 <br>
 
-(Скрипт)[https://github.com/AnatolyKuzmin/Linux/blob/main/log_error_notifier.sh], который анализирует лог-файл и отправляет уведомление, если обнаружена ошибка.<br>
+[Скрипт](https://github.com/AnatolyKuzmin/Linux/blob/main/log_error_notifier.sh), который анализирует лог-файл и отправляет уведомление, если обнаружена ошибка.<br>
 Скрипт проверяет, был ли передан путь к лог-файлу. Если нет, выводится сообщение об использовании.<br>
 `chmod +x log_error_notifier.sh ` Сделайте его исполняемым, `./log_error_notifier.sh /var/log/syslog` Запустить скрипт, указав путь к лог-файлу<br>
 
