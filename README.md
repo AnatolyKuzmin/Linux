@@ -420,12 +420,14 @@ text
 Настройка сети: ip, ifconfig.<br>
 **ifconfig** — это классическая команда для управления сетевыми интерфейсами в Linux.  
 `ifconfig` Отображение информации о сетевых интерфейсах, `sudo ifconfig eth0 192.168.0.10 netmask 255.255.255.0` Установка IP-адреса, `sudo ifconfig eth0 up` `sudo ifconfig eth0 up` Включение/отключение интерфейса.  
-Примеры
+Примеры  
 `sudo ifconfig eth0 netmask 255.255.255.224` Назначение маски сети  
 `sudo ifconfig eth0 broadcast 172.16.25.63` Назначение широковещательного адреса  
 **ip** — это более современная и мощная альтернатива ifconfig  
 `ip addr show` Отображение информации о сетевых интерфейсах, `sudo ip addr add 192.168.0.10/24 dev eth0` Установка IP-адреса, `sudo ip addr del 192.168.0.10/24 dev eth0` Удаление IP-адреса, `sudo ip link set eth0 up` `sudo ip link set eth0 down` Включение/отключение интерфейса  
-
+Примеры  
+`sudo ip route add default via 192.168.0.1 dev eth0` Добавление маршрута  
+`ip route show` Просмотр таблицы маршрутов  
 
 Файлы конфигурации сети.
 Диагностика сети: ping, traceroute, netstat, ss.
