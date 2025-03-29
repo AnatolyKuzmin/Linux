@@ -465,7 +465,17 @@ DNS: nslookup, dig.<br>
 ### SSH
 
 SSH: подключение к удаленным серверам.<br>
-
+это протокол, для обеспечения безопасного удаленного управления серверами.  
+`sudo apt install openssh-server` - Установка OpenSSH-сервера  
+`sudo systemctl start sshd` - Запуск SSH-сервера  
+`sudo systemctl enable sshd` - Включение автозапуска SSH-сервера  
+Примеры  
+`ssh user@192.168.1.100` Подключение с указанием имени пользователя  
+`ssh -p 2222 user@192.168.1.100` Подключение с использованием нестандартного порта  
+`scp local_file user@remote_host:/remote/directory` Копирование файла на удаленный сервер  
+`dscp user@remote_host:/remote/file local_directory` Копирование файла с удаленного сервера  
+`ssh-keygen` Генерация ключей  
+`ssh-copy-id user@remote_host` Копирование публичного ключа на сервер  
 
 Аутентификация по паролю и по ключу.
 Настройка SSH-сервера.
