@@ -614,17 +614,37 @@ done
 `echo "${my_array[@]}"` # Доступ к элементам массива. Все элементы  
 `echo "${#my_array[@]}"` # Доступ к элементам массива. Количество элементов  
 `my_array[1]="grape"` # Изменение элемента  
-`unset my_array[2]` # Удаление элемента
+`unset my_array[2]` # Удаление элемента  
+Перебор элементов массива.  
 ```  
-for fruit in "${my_array[@]}" # Перебор элементов массива. С помощью цикла for
+for fruit in "${my_array[@]}" # С помощью цикла for
 do
   echo "Фрукт: $fruit"
 done
 ```
-`` # 
-`` # 
-`` # 
-`` # 
+```  
+for i in "${!my_array[@]}" # По индексам
+do
+  echo "Индекс $i: ${my_array[$i]}"
+done
+```
+В Bash список часто представлен как строка с разделителями.  
+```
+list="one two three"
+for item in $list
+do
+  echo "Элемент: $item"
+done
+```
+Ассоциативные массивы позволяют использовать строки в качестве индексов.  
+```
+declare -A capitals
+capitals[Russia]="Moscow"
+capitals[France]="Paris"
+capitals[Germany]="Berlin"
+
+echo "Столица Франции: ${capitals[France]}"
+```
 
 Функции.
 Аргументы командной строки.
