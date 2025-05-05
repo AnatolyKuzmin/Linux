@@ -940,7 +940,6 @@ qemu-img create -f raw /var/lib/libvirt/images/data-disk.img 10G
 virsh attach-disk vm_name /var/lib/libvirt/images/data-disk.img vdb --persistent
 ```
 
-Создать виртуальную машину с CentOS/Ubuntu.
 ### Docker (основы)
 Что такое Docker? Контейнеры vs. Виртуальные машины.
 Установка Docker.
