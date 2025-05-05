@@ -917,11 +917,29 @@ network:
 ```
 4. Работа с дисками
 - Создание образа диска: `qemu-img create -f qcow2 /var/lib/libvirt/images/disk2.qcow2 30G`
-- Добавление диска к существующей ВМ через virt-manager или редактирование XML-конфигурации.
+  - -f qcow2 - формат образа (наиболее популярен qcow2, также часто используется raw)
+- Добавление диска к существующей ВМ через virt-manager или редактирование XML-конфигурации.  
 
+Работа с образами дисков.  
+- Чтобы узнать подробности об образе `qemu-img info /path/to/disk.img`
+- Проверить диск на наличие ошибок `qemu-img check /path/to/disk.img`
+- Конвертация форматов образов `qemu-img convert -f qcow2 -O raw source.qcow2 dest.raw`
+  - -f - исходный формат, -O - целевой формат
+- Cоздания и управления снимками (сохранённых состояний)
+```
+qemu-img snapshot -c snapshot_name /path/to/disk.img   # создать снимок
+qemu-img snapshot -l /path/to/disk.img                 # список снимков
+qemu-img snapshot -a snapshot_name /path/to/disk.img   # откатиться к снимку
+```
+- Пример создания и подключения нового диска
+```
+# Создать диск
+qemu-img create -f raw /var/lib/libvirt/images/data-disk.img 10G
 
+# Подключить диск к ВМ (пример для KVM)
+virsh attach-disk vm_name /var/lib/libvirt/images/data-disk.img vdb --persistent
+```
 
-Работа с образами дисков.
 Создать виртуальную машину с CentOS/Ubuntu.
 ### Docker (основы)
 Что такое Docker? Контейнеры vs. Виртуальные машины.
