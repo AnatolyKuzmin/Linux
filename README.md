@@ -881,9 +881,46 @@ sudo usermod -aG kvm $USER
 sudo systemctl enable --now libvirtd
 sudo systemctl status libvirtd
 ```
+Проверьте, что KVM работает. `lsmod | grep kvm` Должны быть загружены модули kvm_intel или kvm_amd (в зависимости от процессора). Проверьте наличие сетевого моста (обычно virbr0) `brctl show`  
+
+Создание и управление виртуальными машинами.  
+1. Создание ВМ.  
+Через терминал  
+```
+virt-install \
+  --name=ubuntu-vm \
+  --ram=2048 \
+  --vcpus=2 \
+  --disk path=/var/lib/libvirt/images/ubuntu.qcow2,size=20 \
+  --cdrom /path/to/ubuntu.iso \
+  --network bridge=virbr0 \
+  --graphics vnc
+```
+- --disk: путь к образу диска и его размер (в ГБ)
+- --cdrom: путь к ISO-образу ОС
+- --network: сетевой интерфейс (по умолчанию virbr0 с NAT)
+Через графический интерфейс (GUI)  
+- Запустите virt-manager или панель Cockpit (cockpit-machines).  
+- Нажмите Создать виртуальную машину → выберите ISO-образ → укажите параметры (память, CPU, диск).  
+2. Управление ВМ  
+`virsh list --all` - Просмотр списка ВМ. `virsh start ubuntu-vm` `virsh shutdown ubuntu-vm` `virsh destroy ubuntu-vm  # аварийное завершение` - Запуск/остановка. `virsh undefine ubuntu-vm` - Удаление ВМ. `virsh edit ubuntu-vm` - Редактирование конфигурации.
+3. Настройка сети  
+- Стандартный мост (NAT): автоматически создаётся как virbr0. Подходит для доступа ВМ в интернет.
+- Ручной мост: для прямого доступа ВМ в локальную сеть. Пример настройки в /etc/netplan/ (Ubuntu):
+```
+network:
+  version: 2
+  bridges:
+    br0:
+      interfaces: [enp3s0]
+      dhcp4: true
+```
+4. Работа с дисками
+- Создание образа диска: `qemu-img create -f qcow2 /var/lib/libvirt/images/disk2.qcow2 30G`
+- Добавление диска к существующей ВМ через virt-manager или редактирование XML-конфигурации.
 
 
-Создание и управление виртуальными машинами.
+
 Работа с образами дисков.
 Создать виртуальную машину с CentOS/Ubuntu.
 ### Docker (основы)
