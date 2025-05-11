@@ -958,7 +958,9 @@ virsh attach-disk vm_name /var/lib/libvirt/images/data-disk.img vdb --persistent
 
 **Ключевые отличия:** Контейнеры запускаются быстрее, занимают меньше ресурсов и используют общее ядро ОС, что делает их идеальными для микросервисов, CI/CD и быстрого масштабирования. Виртуальные машины обеспечивают более высокий уровень изоляции, так как каждая ВМ работает на собственной ОС, но требуют больше ресурсов и запускаются медленнее.
 
-Установка Docker.
+Установка Docker(Ubuntu).  
+`sudo apt update` - Обновите пакеты. `sudo apt install apt-transport-https ca-certificates curl software-properties-common` - Установите необходимые пакеты. `curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -` - Добавьте GPG-ключ репозитория Docker. `sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"` - Добавьте официальный репозиторий Docker. `sudo apt update` - Обновите пакеты снова. `sudo apt install docker-ce` - Установите Docker. `sudo systemctl status docker` - Проверьте статус Docker. `sudo docker run hello-world` Проверьте работу Docker.  
+
 Работа с образами Docker.
 Запуск и управление контейнерами.
 Запустить веб-сервер в Docker-контейнере.
