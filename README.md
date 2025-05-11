@@ -961,7 +961,19 @@ virsh attach-disk vm_name /var/lib/libvirt/images/data-disk.img vdb --persistent
 Установка Docker(Ubuntu).  
 `sudo apt update` - Обновите пакеты. `sudo apt install apt-transport-https ca-certificates curl software-properties-common` - Установите необходимые пакеты. `curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -` - Добавьте GPG-ключ репозитория Docker. `sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"` - Добавьте официальный репозиторий Docker. `sudo apt update` - Обновите пакеты снова. `sudo apt install docker-ce` - Установите Docker. `sudo systemctl status docker` - Проверьте статус Docker. `sudo docker run hello-world` Проверьте работу Docker.  
 
-Работа с образами Docker.
+Работа с образами Docker.  
+Образы Docker - это шаблоны, на основе которых создаются контейнеры. Они содержат все необходимые зависимости, библиотеки и настройки для запуска приложений. Работа с образами включает их создание, просмотр, загрузку, удаление и отправку в удалённые репозитории.  
+Основные команды для работы с образами Docker  
+`docker image build -t имя_репозитория/имя_образа:тег путь_к_Dockerfile` - Создание образа из Dockerfile(-t задаёт имя и тег образа, а точка . указывает на текущую директорию с Dockerfile). `docker images` - Просмотр локальных образов. `docker image inspect имя_образа` - Получение подробной информации об образе. `docker image history имя_образа` - Просмотр истории слоёв образа. `docker image rm имя_образа` - Удаление образа.  
+`docker pull имя_образа` - Загрузка образа из удалённого репозитория (например, Docker Hub). `docker login` - Перед отправкой необходимо войти в Docker Hub. `docker image push имя_репозитория/имя_образа:тег` - После успешной авторизации.  
+Пример полного цикла работы с образом  
+`docker build -t username/myapp:1.0 .` - Создаём образ из Dockerfile.  
+`docker images` - Просматриваем созданный образ.  
+`docker run -d -p 8080:80 username/myapp:1.0` - Запускаем контейнер из образа.  
+`docker login`
+`docker push username/myapp:1.0` - Отправляем образ в Docker Hub.  
+
+
 Запуск и управление контейнерами.
 Запустить веб-сервер в Docker-контейнере.
 ### Сети в Docker
