@@ -998,7 +998,12 @@ virsh attach-disk vm_name /var/lib/libvirt/images/data-disk.img vdb --persistent
 - --env <VAR>=<value> - передача переменных окружения
 `docker container prune` - Удалить все остановленные контейнеры. `docker rm $(docker ps -qa)` - Удалить все контейнеры. `docker logs <имя/ID>` - Логи контейнера. `docker inspect <имя/ID>` - Информация о контейнере.  
 
-Запустить веб-сервер в Docker-контейнере.
+Запустить веб-сервер в Docker-контейнере.  
+Пример для Nginx  
+`docker pull nginx` - Скачайте официальный образ веб-сервера.
+Пример для Apache  
+`docker pull httpd` - Скачайте официальный образ веб-сервера.
+
 ### Сети в Docker
 Сети Docker: bridge, host, none.
 Создание пользовательских сетей.
