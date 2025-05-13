@@ -973,8 +973,14 @@ virsh attach-disk vm_name /var/lib/libvirt/images/data-disk.img vdb --persistent
 `docker login`
 `docker push username/myapp:1.0` - Отправляем образ в Docker Hub.  
 
+Запуск и управление контейнерами.  
+**Контейнер** - это изолированная среда, созданная на основе Docker-образа, в которой запускается приложение или сервис. Запуск контейнера `docker run [OPTIONS] IMAGE [COMMAND] [ARG...]`. **IMAGE** - имя образа (например, nginx, python:3.10, hello-world). **[OPTIONS]** - дополнительные параметры (режим работы, подключение томов, портов и др.). **[COMMAND] [ARG...]** - команда, которую контейнер должен выполнить (опционально).  
+`docker run hello-world` - Запустить контейнер из образа hello-world.  
+`docker run -it ubuntu:latest bash` - Запустить контейнер с доступом к терминалу.  
+`docker run -d nginx` - Запустить контейнер в фоновом режиме (detached mode).  
+`docker run --name mynginx -d nginx` - Запустить контейнер с именем.  
+`docker run --rm alpine echo "Hello from Alpine"` - Автоматически удалить контейнер после завершения.  
 
-Запуск и управление контейнерами.
 Запустить веб-сервер в Docker-контейнере.
 ### Сети в Docker
 Сети Docker: bridge, host, none.
