@@ -1000,9 +1000,22 @@ virsh attach-disk vm_name /var/lib/libvirt/images/data-disk.img vdb --persistent
 
 Запустить веб-сервер в Docker-контейнере.  
 Пример для Nginx  
-`docker pull nginx` - Скачайте официальный образ веб-сервера.
+`docker pull nginx` - Скачайте официальный образ веб-сервера.  
+`mkdir -p ~/mynginx/html`  
+`echo "<h1>Привет из Nginx!</h1>" > ~/mynginx/html/index.html` - Создайте директорию для сайта и добавьте туда свой index.htm  
+`docker run --name mynginx -v ~/mynginx/html:/usr/share/nginx/html:ro -p 8080:80 -d nginx` - Запустите контейнер с пробросом портов и монтированием каталога  
+- --name mynginx - имя контейнера
+- -v ~/mynginx/html:/usr/share/nginx/html:ro - монтируем локальный каталог с сайтами в контейнер (только для чтения)
+- -p 8080:80 - пробрасываем порт 8080 хоста на порт 80 контейнера
+- -d - запускаем в фоновом режиме
+`http://localhost:8080` - Проверьте работу веб-сервера.  
+
 Пример для Apache  
-`docker pull httpd` - Скачайте официальный образ веб-сервера.
+`docker pull httpd` - Скачайте официальный образ веб-сервера.  
+`mkdir ~/my-apache-website`  
+`echo "<!DOCTYPE html><html><body><h1>Hello from Apache!</h1></body></html>" > ~/my-apache-website/index.html` - Создайте директорию для сайта и добавьте туда свой index.html  
+`docker run -dit --name my-apache-server -p 8080:80 -v ~/my-apache-website:/usr/local/apache2/htdocs/ httpd:latest` - Запустите контейнер с пробросом портов и монтированием каталога  
+`http://localhost:8080` - Проверьте работу веб-сервера.  
 
 ### Сети в Docker
 Сети Docker: bridge, host, none.
