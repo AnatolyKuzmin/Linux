@@ -980,6 +980,23 @@ virsh attach-disk vm_name /var/lib/libvirt/images/data-disk.img vdb --persistent
 `docker run -d nginx` - Запустить контейнер в фоновом режиме (detached mode).  
 `docker run --name mynginx -d nginx` - Запустить контейнер с именем.  
 `docker run --rm alpine echo "Hello from Alpine"` - Автоматически удалить контейнер после завершения.  
+| Команда | Описание |
+|----|----|
+| docker ps | Список запущенных контейнеров |
+| docker ps -a | Список всех контейнеров (в т.ч. остановленных) |
+| docker start <имя/ID> | Запустить ранее созданный контейнер |
+| docker stop <имя/ID> | Остановить контейнер |
+| docker restart <имя/ID> | Перезапустить контейнер |
+| docker rm <имя/ID> | Удалить контейнер (только остановленный) |
+| docker logs <имя/ID> | Посмотреть логи контейнера |
+| docker inspect <имя/ID> | Детальная информация о контейнере |
+| docker exec -it <имя/ID> bash | Выполнить команду внутри работающего контейнера (например, открыть bash) |
+
+`docker run -d -p 8080:80 --name webserver nginx`  
+- -p <host_port>:<container_port> - проброс портов (например, -p 8080:80)
+- -v <host_path>:<container_path> - подключение тома (например, -v /data:/app/data)
+- --env <VAR>=<value> - передача переменных окружения
+`docker container prune` - Удалить все остановленные контейнеры. `docker rm $(docker ps -qa)` - Удалить все контейнеры. `docker logs <имя/ID>` - Логи контейнера. `docker inspect <имя/ID>` - Информация о контейнере.  
 
 Запустить веб-сервер в Docker-контейнере.
 ### Сети в Docker
