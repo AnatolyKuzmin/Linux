@@ -1037,10 +1037,11 @@ virsh attach-disk vm_name /var/lib/libvirt/images/data-disk.img vdb --persistent
 - В контейнере не создаётся ни одного сетевого интерфейса, кроме loopback (lo).
 - Контейнер не может ни отправлять, ни принимать сетевой трафик извне.
 - Такой режим подходит для задач, где сеть не нужна вовсе, либо для ручной настройки сетевых интерфейсов.
-Примеры запуска:
-`docker run --network bridge nginx`      # по умолчанию
-`docker run --network host nginx`
-`docker run --network none nginx`
+
+Примеры запуска:  
+`docker run --network bridge nginx`      # по умолчанию  
+`docker run --network host nginx`  
+`docker run --network none nginx`  
 
 Создание пользовательских сетей.
 Связывание контейнеров.
