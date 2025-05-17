@@ -1052,10 +1052,10 @@ virsh attach-disk vm_name /var/lib/libvirt/images/data-disk.img vdb --persistent
 Основные типы пользовательских сетей  
 - Bridge (мост): для связи и изоляции контейнеров на одном хосте.
 - Overlay: для связи контейнеров на разных хостах в кластере Docker Swarm.
-- Macvlan: контейнеры получают IP из физической сети и видны как отдельные устройства.
+- Macvlan: контейнеры получают IP из физической сети и видны как отдельные устройства.  
 **Создание пользовательской bridge-сети**  
-`docker network create --driver bridge my_bridge_network`
-Можно задать параметры: подсеть, шлюз, диапазон IP `docker network create --driver=bridge --subnet=192.168.100.0/24 --gateway=192.168.100.1 mynet`
+`docker network create --driver bridge my_bridge_network`  
+Можно задать параметры: подсеть, шлюз, диапазон IP `docker network create --driver=bridge --subnet=192.168.100.0/24 --gateway=192.168.100.1 mynet`  
 Запуск контейнеров в пользовательской сети
 ```
 docker run -d --name container1 --network my_bridge_network nginx
@@ -1064,7 +1064,41 @@ docker run -d --name container2 --network my_bridge_network busybox sleep 1000
 Теперь container2 может обратиться к container1 по имени: `docker exec container2 ping -c 4 container1`
 
 **Создание overlay-сети (для Docker Swarm)**  
-`docker network create --driver overlay --subnet=10.11.0.0/16 my_overlay`
+`docker network create --driver overlay --subnet=10.11.0.0/16 my_overlay`  
+Overlay-сети позволяют соединять контейнеры на разных хостах в кластере.  
+
+**Создание macvlan-сети**  
+```
+docker network create -d macvlan \
+  --subnet=192.168.1.0/24 \
+  --gateway=192.168.1.1 \
+  -o parent=eth0 my_macvlan_network
+```
+Контейнеры в такой сети получают IP из указанной подсети и видны в вашей физической сети.  
+
+**Использование в Docker Compose**  
+В файле docker-compose.yml можно определить пользовательскую сеть и подключить к ней сервисы:
+```
+version: '3.8'
+services:
+  web:
+    image: nginx
+    networks:
+      - my_bridge_network
+  app:
+    image: myapp
+    networks:
+      - my_bridge_network
+networks:
+  my_bridge_network:
+    driver: bridge
+```
+Запуск:  `docker compose up -d`. Оба сервиса будут в одной пользовательской сети и смогут обращаться друг к другу по имени.  
+Преимущества пользовательских сетей  
+- Автоматический DNS между контейнерами.
+- Лучшая изоляция по сравнению с default bridge.
+- Гибкая настройка параметров сети (подсети, шлюзы, диапазоны IP).
+- Возможность подключения и отключения контейнеров без остановки.
 
 Связывание контейнеров.
 Docker Compose (основы).
