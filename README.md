@@ -1053,6 +1053,18 @@ virsh attach-disk vm_name /var/lib/libvirt/images/data-disk.img vdb --persistent
 - Bridge (мост): для связи и изоляции контейнеров на одном хосте.
 - Overlay: для связи контейнеров на разных хостах в кластере Docker Swarm.
 - Macvlan: контейнеры получают IP из физической сети и видны как отдельные устройства.
+**Создание пользовательской bridge-сети**  
+`docker network create --driver bridge my_bridge_network`
+Можно задать параметры: подсеть, шлюз, диапазон IP `docker network create --driver=bridge --subnet=192.168.100.0/24 --gateway=192.168.100.1 mynet`
+Запуск контейнеров в пользовательской сети
+```
+docker run -d --name container1 --network my_bridge_network nginx
+docker run -d --name container2 --network my_bridge_network busybox sleep 1000
+```
+Теперь container2 может обратиться к container1 по имени: `docker exec container2 ping -c 4 container1`
+
+**Создание overlay-сети (для Docker Swarm)**  
+`docker network create --driver overlay --subnet=10.11.0.0/16 my_overlay`
 
 Связывание контейнеров.
 Docker Compose (основы).
