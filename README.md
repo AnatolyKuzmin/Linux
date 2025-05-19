@@ -1138,7 +1138,48 @@ Docker Compose - инструмент для управления многоко
 - Файл конфигурации: В корне проекта создаётся файл docker-compose.yml, в котором описываются все сервисы, их параметры, сети, тома и переменные окружения.
 - Сервис: Логическая единица, описывающая контейнер (или группу одинаковых контейнеров), например, web, db, redis и т.д.
 - Сеть и тома: Docker Compose позволяет автоматически создавать пользовательские сети и тома для обмена данными и изоляции сервисов.  
-
+Пример простого docker-compose.yml
+В этом примере определены два сервиса: web (Nginx) и redis (Redis). Контейнер с Nginx будет доступен на порту 80 хоста.
+```
+version: '3'
+services:
+  web:
+    image: nginx
+    ports:
+      - "80:80"
+  redis:
+    image: redis
+```
+Расширенный пример с зависимостями и томами. `depends_on` гарантирует, что база данных будет запущена раньше приложения. `volumes` обеспечивает сохранение данных базы вне контейнера. `healthcheck` позволяет следить за готовностью сервиса.
+```
+version: "3"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: make start
+    ports:
+      - "3000:8000"
+    volumes:
+      - .:/app
+      - /tmp:/tmp
+    depends_on:
+      - db
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: password
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+volumes:
+  pgdata:
+```
 
 Создать сеть Docker и связать два контейнера (например, веб-сервер и базу данных).
 ### Ansible (основы)
