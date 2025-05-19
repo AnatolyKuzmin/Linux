@@ -1180,6 +1180,17 @@ services:
 volumes:
   pgdata:
 ```
+Основные команды Docker Compose  
+| Команда | Описание |
+|---|---|
+| docker compose build | Сборка образов сервисов по описанию в файле |
+| docker compose up | Запуск всех сервисов |
+| docker compose up -d | Запуск в фоновом режиме |
+| docker compose stop | Остановка сервисов (без удаления) |
+| docker compose down | Остановка и удаление контейнеров, сетей, томов |
+| docker compose logs <service> | Просмотр логов конкретного сервиса |
+| docker compose exec <svc> sh | Выполнение команды внутри работающего контейнера |
+| docker compose ps | Список всех сервисов и их статусов |
 
 Создать сеть Docker и связать два контейнера (например, веб-сервер и базу данных).
 ### Ansible (основы)
