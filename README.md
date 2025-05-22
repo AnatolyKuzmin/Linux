@@ -1243,6 +1243,14 @@ DB_PASSWORD=mysecretpassword
 | +------------------+ |
 +----------------------+
 
+Проверка сети и контейнеров  
+- Просмотр списка сетей: `docker network ls`
+- Детали сети: `docker network inspect my_app_net`  
+Удаление сети и контейнеров
+```
+docker stop web db && docker rm web db
+docker network rm my_app_net
+```
 
 ### Ansible (основы)
 Что такое Ansible? Infrastructure as Code.
