@@ -1287,6 +1287,7 @@ docker network rm my_app_net
 ```
 
 Установка Ansible.
+
 Ansible inventory.
 Ansible playbooks: синтаксис и структура.
 Написать playbook, который устанавливает и настраивает Nginx на удаленном сервере.
