@@ -1328,7 +1328,17 @@ firewall-cmd --zone=public --remove-service=ftp --permanent
 # Проверка статуса сервиса
 firewall-cmd --zone=public --query-service=http
 ```
-3. **Правила.**
+3. **Правила.** Rich Rules позволяют создавать сложные условия фильтрации, например: Разрешение трафика от конкретного IP-адреса. Логирование подозрительных соединений. Перенаправление портов.
+```
+# Разрешить SSH только с IP 192.168.1.10
+firewall-cmd --zone=public --add-rich-rule='rule family="ipv4" source address="192.168.1.10" service name="ssh" accept'
+
+# Заблокировать ICMP-запросы (ping)
+firewall-cmd --zone=public --add-rich-rule='rule protocol value="icmp" reject'
+
+# Перенаправить порт 8080 на 80
+firewall-cmd --zone=public --add-forward-port=port=8080:proto=tcp:toport=80
+```
 
 Если сервис не предопределён, порты можно открыть вручную:
 ```
