@@ -1314,7 +1314,20 @@ firewall-cmd --get-zone-of-interface=eth0
 # Назначение зоны интерфейсу
 firewall-cmd --zone=home --change-interface=eth0 --permanent
 ```
-2. **Сервисы.**
+2. **Сервисы.** Сервисы — предопределённые наборы правил для распространённых приложений (HTTP, SSH, MySQL). Они автоматически открывают необходимые порты и протоколы. Основные сервисы: http (порт 80/TCP), https (порт 443/TCP), ssh (порт 22/TCP), samba (порты 137-139, 445/TCP и UDP)
+```
+# Список всех доступных сервисов
+firewall-cmd --get-services
+
+# Добавление сервиса в зону
+firewall-cmd --zone=public --add-service=http --permanent
+
+# Удаление сервиса
+firewall-cmd --zone=public --remove-service=ftp --permanent
+
+# Проверка статуса сервиса
+firewall-cmd --zone=public --query-service=http
+```
 3. **Правила.**
 
 Если сервис не предопределён, порты можно открыть вручную:
