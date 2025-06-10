@@ -1304,7 +1304,30 @@ docker network rm my_app_net
 
 Зачем нужен firewall? Защищает от несанкционированного доступа и атак извне. Блокирует вредоносный и нежелательный трафик. Сохраняет конфиденциальность данных и предотвращает утечки информации. Позволяет управлять доступом к ресурсам сети.
 
-Firewalld: зоны, сервисы, правила.
+Firewalld: зоны, сервисы, правила.  
+
+1. Зоны.
+2. Сервисы.
+3. Правила.
+
+Если сервис не предопределён, порты можно открыть вручную:
+```
+# Открыть порт 3306/TCP для MySQL
+firewall-cmd --zone=internal --add-port=3306/tcp --permanent
+
+# Закрыть порт
+firewall-cmd --zone=internal --remove-port=3306/tcp --permanent
+
+# Просмотр открытых портов
+firewall-cmd --zone=internal --list-ports
+```
+Основные команды  
+`firewall-cmd --reload` - Применить изменения без перезагрузки.  
+`firewall-cmd --list-all-zones` - Показать все зоны и их правила.  
+`firewall-cmd --get-default-zone` - Текущая зона по умолчанию.  
+`firewall-cmd --set-default-zone=home` - Изменить зону по умолчанию.  
+`firewall-cmd --runtime-to-permanent` - 	Сохранить временные правила навсегда.
+
 Iptables: синтаксис и правила.
 Примеры настройки firewall.
 Настроить firewall для защиты веб-сервера.
